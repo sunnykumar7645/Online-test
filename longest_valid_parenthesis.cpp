@@ -37,7 +37,7 @@ int main(){
     cout<<"Please provide the input string > "  <<endl;
     cin>>str;
 
-    cout<<longestValidParenthesis(str)<<endl;
+    cout<<"The result string will be : "<<longestValidParenthesis(str)<<endl;
 
 
     return 0;

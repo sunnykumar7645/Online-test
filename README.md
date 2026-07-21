@@ -1,14 +1,19 @@
-# Online-test
 # Longest Valid Parentheses (C++)
 
-This program finds the **longest valid (well-formed) parentheses substring** from a given input string.
+## Overview
 
-## Prerequisites
+This project implements a **stack-based algorithm** to find the **longest valid (well-formed) parentheses substring** from a given input string.
 
-- C++ compiler (GCC/G++)
+The program accepts a string containing only the characters `(` and `)` and prints the longest valid parentheses substring.
+
+---
+
+## Requirements
+
 - C++11 or later
+- GNU C++ Compiler (`g++`)
 
-Verify that g++ is installed:
+Check whether `g++` is installed:
 
 ```bash
 g++ --version
@@ -20,7 +25,7 @@ g++ --version
 
 ```
 .
-├── main.cpp
+├── longest_valid_parenthesis.cpp
 └── README.md
 ```
 
@@ -28,23 +33,13 @@ g++ --version
 
 ## Compile
 
-Use the following command to compile the program:
+Open a terminal in the project directory and run:
 
 ```bash
-g++ -std=c++11 -o longestValidParentheses main.cpp
+g++ -std=c++11 longest_valid_parenthesis.cpp -o longestValidParentheses
 ```
 
-or with optimizations:
-
-```bash
-g++ -std=c++17 -O2 -o longestValidParentheses main.cpp
-```
-
-This creates an executable named:
-
-```
-longestValidParentheses
-```
+If the compilation is successful, an executable named **longestValidParentheses** will be created.
 
 ---
 
@@ -64,79 +59,113 @@ longestValidParentheses.exe
 
 ---
 
-## Example
+## Sample Execution
 
-### Input
+### Example 1
 
+```text
+$ ./longestValidParentheses
+
+Please provide the input string >
+(() 
+
+The result string will be : ()
 ```
+
+---
+
+### Example 2
+
+```text
+$ ./longestValidParentheses
+
+Please provide the input string >
 )()())
-```
 
-### Output
-
-```
-()()
+The result string will be : ()()
 ```
 
 ---
 
-### Another Example
+### Example 3
 
-Input
+```text
+$ ./longestValidParentheses
 
-```
-(()
-```
-
-Output
-
-```
-()
-```
-
----
-
-### Another Example
-
-Input
-
-```
+Please provide the input string >
 ((())())
-```
 
-Output
-
-```
-((())())
+The result string will be : ((())())
 ```
 
 ---
 
 ## Algorithm
 
-The solution uses a **stack of indices**.
+The program uses a **stack of indices**.
 
-- Push the index of every `'('`.
-- Pop when a `')'` is encountered.
-- If the stack becomes empty, push the current index as the new base.
-- Otherwise, calculate the current valid substring length using:
+### Steps
 
-```cpp
-length = currentIndex - stack.top();
+1. Push `-1` onto the stack as the initial base index.
+2. Traverse the input string from left to right.
+3. If the current character is `'('`, push its index onto the stack.
+4. If the current character is `')'`:
+   - Pop the top index.
+   - If the stack becomes empty, push the current index as the new base.
+   - Otherwise:
+     - Calculate the current valid substring length.
+     - Update the maximum length and starting index if a longer valid substring is found.
+5. Return the longest valid substring using `substr()`.
+
+---
+
+## Example
+
+### Input
+
+```text
+)()())
 ```
 
-- Track the maximum length and starting index.
-- Return the substring using:
+### Stack Operations
 
-```cpp
-return s.substr(startIndex, maxLength);
+| Character | Action |
+|-----------|--------|
+| `)` | Pop → Empty → Push current index |
+| `(` | Push index |
+| `)` | Pop → Valid substring found |
+| `(` | Push index |
+| `)` | Pop → Update longest substring |
+| `)` | Pop → Empty → Push current index |
+
+### Output
+
+```text
+()()
 ```
 
 ---
 
-## Complexity
+## Complexity Analysis
 
-- **Time Complexity:** `O(n)`
-- **Space Complexity:** `O(n)`
+| Metric | Complexity |
+|---------|------------|
+| Time Complexity | **O(n)** |
+| Space Complexity | **O(n)** |
 
-where `n` is the length of the input string.
+where **n** is the length of the input string.
+
+---
+
+## Input Constraints
+
+- `0 <= s.length <= 3 × 10^4`
+- The string contains only:
+  - `(`
+  - `)`
+
+---
+
+## Author
+
+**Sunny Kumar**
